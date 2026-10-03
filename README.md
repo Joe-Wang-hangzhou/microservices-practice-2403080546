@@ -2,7 +2,47 @@
 
 本项目是“微服务开发与实践”课程持续演进的唯一项目，复用第一次作业创建的公开仓库。系统围绕图书、读者、借阅、预约和罚款管理展开，先规划并实现单体应用，再根据课程进度逐步加入数据库持久化和微服务能力。
 
-> 当前阶段：第二周项目选题与功能规划。以下功能是计划，本周尚未实现 Java 代码。
+> 当前阶段：第三周 Spring Boot 起步。`monolith/` 中已有可运行的 Spring Boot 工程，只提供问候接口和健康检查；下文的业务功能仍是规划，尚未实现。
+
+## 运行说明
+
+### 环境要求
+
+- JDK 25（`java -version` 显示 25）
+- Maven：使用工程自带的 Maven Wrapper（`./mvnw`，会自动下载 Maven 3.9.x），无需单独安装
+- Spring Boot 4.0.8，包名 `com.zjgsu.wch`，配置文件为 `monolith/src/main/resources/application.yml`
+
+### 启动与测试
+
+```bash
+cd monolith
+./mvnw test              # 运行 contextLoads 启动测试
+./mvnw spring-boot:run   # 启动应用，默认端口 8080
+```
+
+Windows 使用 `mvnw.cmd test` 和 `mvnw.cmd spring-boot:run`。
+
+### 访问地址
+
+| 用途 | 地址 | 预期结果 |
+| --- | --- | --- |
+| 问候接口 | http://localhost:8080/api/hello | 返回项目名称和问候消息的 JSON |
+| 健康检查 | http://localhost:8080/actuator/health | `{"status":"UP", ...}` |
+
+### 尚未实现的业务能力
+
+目前没有业务模型、Service、Repository 和数据库，以下能力都还没有实现：图书与馆藏副本管理、读者管理、借出与归还、预约排队、逾期罚款、登录认证与权限控制。后续按课程进度逐步加入。
+
+## 目录结构
+
+```text
+.
+├── README.md
+├── docs/
+│   ├── project-proposal.md   # 选题与本周范围
+│   └── homework/week-0X/     # 每周作业记录与截图
+└── monolith/                 # Spring Boot 单体工程（Maven）
+```
 
 ## 业务背景
 
@@ -55,7 +95,7 @@
 
 ## 当前范围与暂不实现的内容
 
-本周完成选题和功能规划，不实现代码。后续初期采用单体应用，围绕单馆的图书查询、读者管理、借还登记、预约排队和罚款记录实现最小完整业务闭环。
+第二周完成选题和功能规划，第三周搭建了 Spring Boot 工程骨架。后续初期采用单体应用，围绕单馆的图书查询、读者管理、借还登记、预约排队和罚款记录实现最小完整业务闭环。
 
 暂不实现跨馆调拨、图书采购、电子书阅读、个性化推荐、在线支付、复杂罚款减免及多渠道通知。暂不引入服务拆分，先完成基础业务与数据库持久化。
 
