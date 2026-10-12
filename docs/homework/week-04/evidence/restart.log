@@ -1,0 +1,11 @@
+Application stopped and started again with the same MySQL database.
+2026-10-12T15:14:09.647+08:00  INFO 31077 --- [library-monolith] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 18084 (http) with context path '/'
+2026-10-12T15:14:09.650+08:00  INFO 31077 --- [library-monolith] [           main] c.zjgsu.wch.LibraryMonolithApplication   : Started LibraryMonolithApplication in 1.925 seconds (process running for 2.053)
+
+$ curl -sS -i http://localhost:18084/api/borrows/1
+HTTP/1.1 200 
+Content-Type: application/json
+Content-Length: 117
+Date: Mon, 12 Oct 2026 07:14:33 GMT
+
+{"id":1,"copyId":1,"readerName":"王超浩","borrowedAt":"2026-10-12","dueAt":"2026-11-11","returnedAt":"2026-10-12"}

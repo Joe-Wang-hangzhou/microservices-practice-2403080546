@@ -2,36 +2,80 @@
 
 本项目是“微服务开发与实践”课程持续演进的唯一项目，复用第一次作业创建的公开仓库。系统围绕图书、读者、借阅、预约和罚款管理展开，先规划并实现单体应用，再根据课程进度逐步加入数据库持久化和微服务能力。
 
-> 当前阶段：第三周 Spring Boot 起步。`monolith/` 中已有可运行的 Spring Boot 工程，只提供问候接口和健康检查；下文的业务功能仍是规划，尚未实现。
+> 当前阶段：第四周单体应用与数据库。已实现书目、副本、借阅记录，以及借出和归还；预约、罚款和权限仍是后续规划。
 
 ## 运行说明
 
-### 环境要求
+### 环境与 MySQL
 
-- JDK 25（`java -version` 显示 25）
-- Maven：使用工程自带的 Maven Wrapper（`./mvnw`，会自动下载 Maven 3.9.x），无需单独安装
-- Spring Boot 4.0.8，包名 `com.zjgsu.wch`，配置文件为 `monolith/src/main/resources/application.yml`
+- Java 25、Spring Boot 4.0.8、Maven Wrapper；基础包名 `com.zjgsu.wch`。
+- macOS 可安装课程示例推荐版本：`brew install mysql@8.4`，再执行 `brew services start mysql@8.4`。
+- 用本地管理员账号进入 MySQL 后执行以下 SQL，将示例密码换成自己的本地密码，不提交密码到 GitHub：
+
+```sql
+CREATE DATABASE IF NOT EXISTS library_db CHARACTER SET utf8mb4;
+CREATE USER IF NOT EXISTS 'library'@'localhost' IDENTIFIED BY 'choose-local-password';
+GRANT ALL PRIVILEGES ON library_db.* TO 'library'@'localhost';
+```
 
 ### 启动与测试
 
 ```bash
+# 在仓库根目录执行；本机默认 Java 21 时需要选用已安装的 Java 25
+export JAVA_HOME=$(/usr/libexec/java_home -v 25)
 cd monolith
-./mvnw test              # 运行 contextLoads 启动测试
-./mvnw spring-boot:run   # 启动应用，默认端口 8080
+./mvnw test
+export DB_PASSWORD='choose-local-password'
+./mvnw spring-boot:run
 ```
 
-Windows 使用 `mvnw.cmd test` 和 `mvnw.cmd spring-boot:run`。
+默认 JDBC URL 为 `jdbc:mysql://localhost:3306/library_db`，用户名 `library`。
+可用 `DB_URL`、`DB_USER`、`DB_PASSWORD`、`SERVER_PORT` 环境变量覆盖。
+Windows 使用 `mvnw.cmd`，并在 PowerShell 中设置 `$env:DB_PASSWORD`。
+测试使用 H2，无需启动 MySQL；新增 Repository、Service 和 API 测试，测试数据由代码自动准备。
 
-### 访问地址
+应用首次启动建表后，可在仓库根目录导入可重复执行的示例数据：
 
-| 用途 | 地址 | 预期结果 |
+```bash
+mysql -u library -p library_db < monolith/scripts/init.sql
+```
+
+### 可直接执行的请求示例
+
+```bash
+# 两个查询可直接运行；先导入 init.sql 后可以借阅固定示例副本 1001
+curl -i http://localhost:8080/api/books
+curl -i http://localhost:8080/api/copies
+curl -i -X POST http://localhost:8080/api/borrows \
+  -H 'Content-Type: application/json' \
+  -d '{"copyId":1001,"readerName":"王超浩"}'
+curl -i http://localhost:8080/api/borrows
+```
+
+借出成功返回 201；同一副本未归还时再次借出返回 409。归还时将下方 `BORROW_ID` 换成借出响应中的 id：
+
+```bash
+curl -i -X POST http://localhost:8080/api/borrows/BORROW_ID/return
+```
+
+| 方法与路径 | 用途 | 成功状态 |
 | --- | --- | --- |
-| 问候接口 | http://localhost:8080/api/hello | 返回项目名称和问候消息的 JSON |
-| 健康检查 | http://localhost:8080/actuator/health | `{"status":"UP", ...}` |
+| POST /api/books | 创建书目并自动创建一个副本 | 201，Location 指向书目详情 |
+| GET /api/books | 书目列表 | 200 |
+| GET /api/books/{id} | 书目详情 | 200 |
+| GET /api/copies | 副本列表及借出状态 | 200 |
+| POST /api/borrows | 办理借出 | 201，Location 指向借阅详情 |
+| GET /api/borrows | 借阅记录列表 | 200 |
+| GET /api/borrows/{id} | 借阅详情 | 200 |
+| POST /api/borrows/{id}/return | 办理归还 | 200 |
 
-### 尚未实现的业务能力
+非法请求返回 400；资源不存在返回 404；重复 ISBN、重复借出、重复归还返回 409。
+保留 `/api/hello` 与 `/actuator/health`。数据库表和约束见 [数据库设计](docs/database.md)，实际验证见 [第四周记录](docs/homework/week-04/index.md)。
 
-目前没有业务模型、Service、Repository 和数据库，以下能力都还没有实现：图书与馆藏副本管理、读者管理、借出与归还、预约排队、逾期罚款、登录认证与权限控制。后续按课程进度逐步加入。
+### 当前边界
+
+本周读者通过姓名记录，借期 30 天。未实现读者账户、预约、罚款、登录权限或多请求并发抢借保障。
+以下业务背景与功能模块保留为项目整体规划，不能视为全部已实现。
 
 ## 目录结构
 
@@ -95,7 +139,7 @@ Windows 使用 `mvnw.cmd test` 和 `mvnw.cmd spring-boot:run`。
 
 ## 当前范围与暂不实现的内容
 
-第二周完成选题和功能规划，第三周搭建了 Spring Boot 工程骨架。后续初期采用单体应用，围绕单馆的图书查询、读者管理、借还登记、预约排队和罚款记录实现最小完整业务闭环。
+第二周完成选题和功能规划，第三周搭建 Spring Boot 工程骨架，第四周完成单体借出/归还和 MySQL 持久化。后续再增加读者管理、预约和罚款。
 
 暂不实现跨馆调拨、图书采购、电子书阅读、个性化推荐、在线支付、复杂罚款减免及多渠道通知。暂不引入服务拆分，先完成基础业务与数据库持久化。
 

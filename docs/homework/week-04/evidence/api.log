@@ -1,0 +1,90 @@
+$ curl -sS -i -X POST http://localhost:18084/api/books -H 'Content-Type: application/json' -d '{"title": "微服务开发实践", "author": "课程示例作者", "isbn": "9780000000404"}'
+HTTP/1.1 201 
+Location: /api/books/1
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 12 Oct 2026 07:14:00 GMT
+
+{"id":1,"title":"微服务开发实践","author":"课程示例作者","isbn":"9780000000404"}
+
+$ curl -sS -i -X GET http://localhost:18084/api/books
+HTTP/1.1 200 
+Content-Type: application/json
+Content-Length: 95
+Date: Mon, 12 Oct 2026 07:14:00 GMT
+
+[{"id":1,"title":"微服务开发实践","author":"课程示例作者","isbn":"9780000000404"}]
+
+$ curl -sS -i -X GET http://localhost:18084/api/copies
+HTTP/1.1 200 
+Content-Type: application/json
+Content-Length: 38
+Date: Mon, 12 Oct 2026 07:14:00 GMT
+
+[{"id":1,"bookId":1,"borrowed":false}]
+
+$ curl -sS -i -X POST http://localhost:18084/api/borrows -H 'Content-Type: application/json' -d '{"copyId": 1, "readerName": "王超浩"}'
+HTTP/1.1 201 
+Location: /api/borrows/1
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 12 Oct 2026 07:14:00 GMT
+
+{"id":1,"copyId":1,"readerName":"王超浩","borrowedAt":"2026-10-12","dueAt":"2026-11-11","returnedAt":null}
+
+$ curl -sS -i -X POST http://localhost:18084/api/borrows -H 'Content-Type: application/json' -d '{"copyId": 1, "readerName": "另一位读者"}'
+HTTP/1.1 409 
+Content-Type: application/problem+json
+Transfer-Encoding: chunked
+Date: Mon, 12 Oct 2026 07:14:00 GMT
+
+{"detail":"该副本已借出，请先归还","instance":"/api/borrows","status":409,"title":"Conflict"}
+
+$ curl -sS -i -X POST http://localhost:18084/api/borrows -H 'Content-Type: application/json' -d '{"copyId": 99999, "readerName": "王超浩"}'
+HTTP/1.1 404 
+Content-Type: application/problem+json
+Transfer-Encoding: chunked
+Date: Mon, 12 Oct 2026 07:14:00 GMT
+
+{"detail":"馆藏副本不存在","instance":"/api/borrows","status":404,"title":"Not Found"}
+
+$ curl -sS -i -X POST http://localhost:18084/api/borrows -H 'Content-Type: application/json' -d '{"copyId": -1, "readerName": ""}'
+HTTP/1.1 400 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 12 Oct 2026 07:14:00 GMT
+Connection: close
+
+{"timestamp":"2026-10-12T07:14:00.324Z","status":400,"error":"Bad Request","path":"/api/borrows"}
+
+$ curl -sS -i -X GET http://localhost:18084/api/borrows
+HTTP/1.1 200 
+Content-Type: application/json
+Content-Length: 111
+Date: Mon, 12 Oct 2026 07:14:00 GMT
+
+[{"id":1,"copyId":1,"readerName":"王超浩","borrowedAt":"2026-10-12","dueAt":"2026-11-11","returnedAt":null}]
+
+$ curl -sS -i -X POST http://localhost:18084/api/borrows/1/return
+HTTP/1.1 200 
+Content-Type: application/json
+Content-Length: 117
+Date: Mon, 12 Oct 2026 07:14:00 GMT
+
+{"id":1,"copyId":1,"readerName":"王超浩","borrowedAt":"2026-10-12","dueAt":"2026-11-11","returnedAt":"2026-10-12"}
+
+$ curl -sS -i -X GET http://localhost:18084/api/copies
+HTTP/1.1 200 
+Content-Type: application/json
+Content-Length: 38
+Date: Mon, 12 Oct 2026 07:14:00 GMT
+
+[{"id":1,"bookId":1,"borrowed":false}]
+
+$ curl -sS -i -X GET http://localhost:18084/api/copies
+HTTP/1.1 200 
+Content-Type: application/json
+Content-Length: 38
+Date: Mon, 12 Oct 2026 07:14:00 GMT
+
+[{"id":1,"bookId":1,"borrowed":false}]
