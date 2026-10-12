@@ -35,9 +35,8 @@ curl -i http://localhost:18084/api/borrows
 结果：创建及借出返回 201、列表及归还返回 200、重复借出 409、不存在副本 404、非法输入 400。
 完整实际请求及响应保存在 [api.log](evidence/api.log)。
 
-![核心源码](screenshots/01-business-code.png)
-![创建借出查询](screenshots/02-api-success.png)
-![业务规则及错误响应](screenshots/03-api-errors.png)
+![IDE中的借出归还代码](screenshots/01-business-code.jpg)
+![副本查询、借出201及重复借出409](screenshots/02-api-response.jpg)
 
 ## 数据库持久化
 
@@ -54,9 +53,8 @@ mysql -u library -p library_db < monolith/scripts/init.sql
 脚本连续导入两次后固定 ID 1001 仍只有一条。停止并重新启动应用，再次 GET /api/borrows/1 返回此前已归还的借阅记录，证明 MySQL 保存数据。
 原始记录：[数据库行](evidence/database-rows.log)、[实际建表 DDL](evidence/database-ddl.log)、[重启查询](evidence/restart.log)。
 
-![MySQL 数据](screenshots/04-mysql-data.png)
-![MySQL 外键与唯一约束](screenshots/05-mysql-schema.png)
-![重启后数据保留](screenshots/06-restart-persistence.png)
+![MySQL三张表及实际保存的记录](screenshots/04-mysql-data.jpg)
+![API读取已持久化借阅记录](screenshots/06-persistent-query.jpg)
 
 ## 测试与验证
 
@@ -77,10 +75,11 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 25)
 Repository/Service 测试使用 H2 与事务回滚自动准备/清理数据；API 测试使用 MockMvc 和模拟 Service，HTTP 层测试与 MySQL 实际请求证据分开记录。
 原始 Maven 输出：[第一次](evidence/test-first.log)、[重复运行](evidence/test-repeat.log)。
 
-![测试源码](screenshots/07-test-code.png)
-![两次测试通过](screenshots/08-test-results.png)
+![学生本机运行10个测试通过](screenshots/08-test-results.jpg)
 
 ## 图片来源
 
-所有 PNG 由真实源文件或本次实际命令输出排版生成，图片注明来源，不是 IDE、终端或课堂现场截屏。原始日志同时保留，以便核对。
+本页5张JPG均由学生本人从IDE或终端截图，原图来自 Downloads/1012，复制重命名后未裁剪或修改图像。原有排版图已移出仓库。
+
+01展示LibraryService借出/归还实现；02展示200查询、201借出和409重复借出；04展示MySQL三张表及借阅记录2；06展示API查询记录1和2；08展示学生本机10个测试通过。06未包含停止/重新启动日志，只直接证明查询成功；前文的重启验证由保留的原始运行日志支持。截图本身不证明课堂座位或课堂现场完成情况。
 课堂座位与现场完成情况只能由学生本人确认；课内实践工程及材料在仓库外的 `提交材料04/课内实践/`。
