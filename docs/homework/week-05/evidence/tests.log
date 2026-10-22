@@ -1,0 +1,6 @@
+#11 92.76 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.546 s -- in com.zjgsu.wch.repository.LibraryRepositoryTest
+#11 93.29 [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.533 s -- in com.zjgsu.wch.controller.LibraryControllerTest
+#11 93.83 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.542 s -- in com.zjgsu.wch.LibraryMonolithApplicationTests
+#11 94.01 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.181 s -- in com.zjgsu.wch.service.LibraryServiceTest
+#11 94.03 [INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+#11 116.1 [INFO] BUILD SUCCESS

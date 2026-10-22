@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "before": {
+    "id": 1,
+    "title": "Docker容器化实践",
+    "author": "王超浩",
+    "isbn": "W05-20261022"
+  },
+  "after": {
+    "id": 1,
+    "title": "Docker容器化实践",
+    "author": "王超浩",
+    "isbn": "W05-20261022"
+  },
+  "equal": true
+}

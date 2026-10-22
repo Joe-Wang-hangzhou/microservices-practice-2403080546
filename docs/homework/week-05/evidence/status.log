@@ -1,0 +1,5 @@
+NAME                     IMAGE                     COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+library-week05-app-1     library-monolith:week05   "java -jar /app/app.…"   app       31 seconds ago   Up 25 seconds             0.0.0.0:18085->8080/tcp, [::]:18085->8080/tcp
+library-week05-mysql-1   mysql:8.4.11              "docker-entrypoint.s…"   mysql     31 seconds ago   Up 30 seconds (healthy)   3306/tcp, 33060/tcp
+REPOSITORY         TAG       IMAGE ID       CREATED          SIZE
+library-monolith   week05    6a2d5635b14b   46 seconds ago   605MB

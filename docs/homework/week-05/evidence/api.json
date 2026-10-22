@@ -1,0 +1,70 @@
+{
+  "health": [
+    200,
+    {
+      "Connection": "close",
+      "Transfer-Encoding": "chunked",
+      "Content-Type": "application/vnd.spring-boot.actuator.v3+json",
+      "Date": "Thu, 22 Oct 2026 14:40:29 GMT"
+    },
+    {
+      "groups": [
+        "liveness",
+        "readiness"
+      ],
+      "status": "UP"
+    }
+  ],
+  "created": [
+    201,
+    {
+      "Connection": "close",
+      "Transfer-Encoding": "chunked",
+      "Content-Type": "application/json",
+      "Date": "Thu, 22 Oct 2026 14:40:29 GMT",
+      "Location": "/api/books/1"
+    },
+    {
+      "id": 1,
+      "title": "Docker容器化实践",
+      "author": "王超浩",
+      "isbn": "W05-20261022"
+    }
+  ],
+  "list": [
+    200,
+    {
+      "Content-Length": "85",
+      "Connection": "keep-alive",
+      "Content-Type": "application/json",
+      "Date": "Thu, 22 Oct 2026 14:40:29 GMT",
+      "Keep-Alive": "timeout=60",
+      "Proxy-Connection": "keep-alive"
+    },
+    [
+      {
+        "id": 1,
+        "title": "Docker容器化实践",
+        "author": "王超浩",
+        "isbn": "W05-20261022"
+      }
+    ]
+  ],
+  "before": [
+    200,
+    {
+      "Content-Length": "83",
+      "Connection": "keep-alive",
+      "Content-Type": "application/json",
+      "Date": "Thu, 22 Oct 2026 14:40:29 GMT",
+      "Keep-Alive": "timeout=60",
+      "Proxy-Connection": "keep-alive"
+    },
+    {
+      "id": 1,
+      "title": "Docker容器化实践",
+      "author": "王超浩",
+      "isbn": "W05-20261022"
+    }
+  ]
+}

@@ -2,7 +2,49 @@
 
 本项目是“微服务开发与实践”课程持续演进的唯一项目，复用第一次作业创建的公开仓库。系统围绕图书、读者、借阅、预约和罚款管理展开，先规划并实现单体应用，再根据课程进度逐步加入数据库持久化和微服务能力。
 
-> 当前阶段：第四周单体应用与数据库。已实现书目、副本、借阅记录，以及借出和归还；预约、罚款和权限仍是后续规划。
+> 当前阶段：第五周 Docker 容器化。已实现书目、副本、借阅记录，以及借出和归还；预约、罚款和权限仍是后续规划。
+
+## 第五周：Docker 容器化
+
+在仓库根目录执行，镜像内使用 Maven 和 Java 25 完成构建，本机只需 Docker Compose。
+
+```bash
+cp .env.example .env
+# 编辑 .env，将两个 replace-with 开头的密码占位符换成本地密码
+# 已配置过 .env 时不要再次覆盖
+ docker build -t library-monolith:week05 ./monolith
+ docker compose up -d --build
+ docker compose ps
+ docker compose logs --tail=30 app
+```
+
+应用通过共享 backend 网络中的 `mysql:3306` 连接 MySQL 8.4.11。数据库健康后才启动应用。
+连接地址、用户和密码由环境变量注入；`.env` 不进入 Git。命名卷 `mysql_data` 挂载 `/var/lib/mysql`。
+默认映射 `18085:8080`，可在 `.env` 修改 APP_PORT。
+
+等到启动日志出现 Started 后执行：
+
+```bash
+curl -i http://localhost:18085/actuator/health
+curl -i -X POST http://localhost:18085/api/books \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"Docker容器化实践","author":"王超浩","isbn":"W05-20261022"}'
+curl -i http://localhost:18085/api/books
+```
+
+创建返回 201；相同 ISBN 重复创建返回 409，重新演示时更换 ISBN。记录创建响应的 id，查询 `/api/books/实际ID`。
+
+```bash
+docker compose down
+docker compose up -d
+# 等待应用启动后，使用原来的 ID 查询同一记录
+curl -i http://localhost:18085/api/books/1
+# 停止应用和数据库（保留数据卷）
+docker compose down
+```
+
+最后的 `/1` 仅适用于创建响应 ID 为 1 的情况。不要使用 `down -v`，它会删除命名数据卷。
+第五周过程与证据见 [第五周记录](docs/homework/week-05/index.md)。
 
 ## 运行说明
 
