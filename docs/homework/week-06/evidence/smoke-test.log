@@ -1,0 +1,78 @@
+ Container library-week05-book-service-1  Stopping
+ Container library-week05-book-service-1  Stopped
+ Container library-week05-book-db-1  Waiting
+ Container library-week05-book-db-1  Healthy
+ Container library-week05-book-service-1  Starting
+ Container library-week05-book-service-1  Started
+GET http://localhost:18086/actuator/health -> HTTP 503
+
+GET http://localhost:18086/actuator/health -> HTTP 503
+
+GET http://localhost:18086/actuator/health -> HTTP 503
+
+GET http://localhost:18086/actuator/health -> HTTP 200
+{"groups":["liveness","readiness"],"status":"UP"}
+GET http://localhost:18087/actuator/health -> HTTP 200
+{"groups":["liveness","readiness"],"status":"UP"}
+GET http://localhost:18088/actuator/health -> HTTP 200
+{"groups":["liveness","readiness"],"status":"UP"}
+Request body: {"name": "王超浩"}
+POST http://localhost:18086/api/readers -> HTTP 201
+{"name":"王超浩","active":true,"id":1}
+Request body: {"title": "微服务拆分实践", "author": "王超浩", "isbn": "W06-850af0ecee08"}
+POST http://localhost:18087/api/books -> HTTP 201
+{"title":"微服务拆分实践","author":"王超浩","isbn":"W06-850af0ecee08","id":1}
+GET http://localhost:18087/api/copies -> HTTP 200
+[{"id":1,"bookId":1,"borrowed":false}]
+GET http://localhost:18088/api/loans -> HTTP 200
+[]
+Request body: {"readerId": 1, "copyId": 1}
+POST http://localhost:18088/api/loans -> HTTP 201
+{"readerId":1,"copyId":1,"borrowedAt":"2026-10-27","dueAt":"2026-11-26","id":1,"returnedAt":null}
+GET http://localhost:18088/api/loans -> HTTP 200
+[{"readerId":1,"copyId":1,"borrowedAt":"2026-10-27","dueAt":"2026-11-26","id":1,"returnedAt":null}]
+GET http://localhost:18087/api/copies/1 -> HTTP 200
+{"id":1,"bookId":1,"borrowed":true}
+SUCCESS: loan rows +1; copy.borrowed=true
+Request body: {"readerId": 1, "copyId": 1}
+POST http://localhost:18088/api/loans -> HTTP 409
+{"detail":"依赖资源状态冲突","instance":"/api/loans","status":409,"title":"Conflict"}
+GET http://localhost:18088/api/loans -> HTTP 200
+[{"readerId":1,"copyId":1,"borrowedAt":"2026-10-27","dueAt":"2026-11-26","id":1,"returnedAt":null}]
+POST http://localhost:18088/api/loans/1/return -> HTTP 200
+{"readerId":1,"copyId":1,"borrowedAt":"2026-10-27","dueAt":"2026-11-26","id":1,"returnedAt":"2026-10-27"}
+GET http://localhost:18087/api/copies/1 -> HTTP 200
+{"id":1,"bookId":1,"borrowed":false}
+GET http://localhost:18088/api/loans/1 -> HTTP 200
+{"readerId":1,"copyId":1,"borrowedAt":"2026-10-27","dueAt":"2026-11-26","id":1,"returnedAt":"2026-10-27"}
+RETURN: returnedAt set; copy.borrowed=false
+GET http://localhost:18088/api/loans -> HTTP 200
+[{"readerId":1,"copyId":1,"borrowedAt":"2026-10-27","dueAt":"2026-11-26","id":1,"returnedAt":"2026-10-27"}]
+Request body: {"readerId": 9223372036854775807, "copyId": 1}
+POST http://localhost:18088/api/loans -> HTTP 404
+{"detail":"依赖资源不存在","instance":"/api/loans","status":404,"title":"Not Found"}
+GET http://localhost:18088/api/loans -> HTTP 200
+[{"readerId":1,"copyId":1,"borrowedAt":"2026-10-27","dueAt":"2026-11-26","id":1,"returnedAt":"2026-10-27"}]
+GET http://localhost:18087/api/copies/1 -> HTTP 200
+{"id":1,"bookId":1,"borrowed":false}
+MISSING READER: HTTP 404; loan rows unchanged; copy remains available
+Request body: {"readerId": 1, "copyId": 9223372036854775807}
+POST http://localhost:18088/api/loans -> HTTP 404
+{"detail":"依赖资源不存在","instance":"/api/loans","status":404,"title":"Not Found"}
+GET http://localhost:18088/api/loans -> HTTP 200
+[{"readerId":1,"copyId":1,"borrowedAt":"2026-10-27","dueAt":"2026-11-26","id":1,"returnedAt":"2026-10-27"}]
+MISSING COPY: HTTP 404; loan rows unchanged
+Request body: {"readerId": 1, "copyId": 1}
+POST http://localhost:18088/api/loans -> HTTP 503
+{"detail":"依赖服务不可用或调用超时","instance":"/api/loans","status":503,"title":"Service Unavailable"}
+GET http://localhost:18088/api/loans -> HTTP 200
+[{"readerId":1,"copyId":1,"borrowedAt":"2026-10-27","dueAt":"2026-11-26","id":1,"returnedAt":"2026-10-27"}]
+UNAVAILABLE: HTTP 503; loan rows unchanged
+GET http://localhost:18087/actuator/health -> HTTP 503
+
+GET http://localhost:18087/actuator/health -> HTTP 200
+{"groups":["liveness","readiness"],"status":"UP"}
+GET http://localhost:18087/api/copies/1 -> HTTP 200
+{"id":1,"bookId":1,"borrowed":false}
+RECOVERED: copy remains available
+ALL SMOKE CHECKS PASSED

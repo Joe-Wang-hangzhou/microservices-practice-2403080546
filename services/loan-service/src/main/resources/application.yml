@@ -1,0 +1,23 @@
+server:
+  port: ${SERVER_PORT:18088}
+spring:
+  application:
+    name: loan-service
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/loan_db}
+    username: ${DB_USER:loan}
+    password: ${DB_PASSWORD:}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+dependencies:
+  reader-url: ${READER_SERVICE_URL:http://localhost:18086}
+  book-url: ${BOOK_SERVICE_URL:http://localhost:18087}
+  connect-timeout-ms: ${CONNECT_TIMEOUT_MS:2000}
+  read-timeout-ms: ${READ_TIMEOUT_MS:3000}

@@ -2,7 +2,40 @@
 
 本项目是“微服务开发与实践”课程持续演进的唯一项目，复用第一次作业创建的公开仓库。系统围绕图书、读者、借阅、预约和罚款管理展开，先规划并实现单体应用，再根据课程进度逐步加入数据库持久化和微服务能力。
 
-> 当前阶段：第五周 Docker 容器化。已实现书目、副本、借阅记录，以及借出和归还；预约、罚款和权限仍是后续规划。
+> 当前阶段：第六周微服务拆分。保留 monolith/，新增 reader-service、book-service、loan-service；预约、罚款和权限仍是后续规划。
+
+## 第六周：微服务拆分
+
+设计见 [服务拆分设计](docs/microservices-design.md)，操作及实测结果见 [第六周记录](docs/homework/week-06/index.md)。
+
+```bash
+# 在仓库根目录执行；已有 .env 时保留，不要覆盖
+cp .env.example .env
+# 首次使用请将 .env 中的两个密码占位符改为自己的本地密码
+# 只需 Docker Compose，镜像构建中执行 Maven 测试
+ docker compose up -d --build
+ docker compose ps
+ ./scripts/smoke-test.sh
+ # 附加验证依赖宕机，会短暂停止 book-service，并自动重新启动
+ ./scripts/smoke-test.sh --unavailable
+```
+
+主机端口：读者 18086、图书 18087、借阅 18088。容器内部通过 reader-service:8080、book-service:8080 通信。每个服务提供 /actuator/health，使用自己的数据库、账号和命名卷。
+
+本机 Java 25 / Maven 测试（H2，无需 MySQL）：
+
+```bash
+mvn -f services/reader-service/pom.xml test
+mvn -f services/book-service/pom.xml test
+mvn -f services/loan-service/pom.xml test
+```
+
+也可在每个工程目录执行 `./mvnw test`。本机分别运行时设置 DB_URL、DB_USER、DB_PASSWORD，再执行 `./mvnw spring-boot:run`；默认端口和依赖地址见各 application.yml。
+
+API：读者 POST /api/readers、GET /api/readers/{id}；图书 POST/GET /api/books、GET /api/copies、GET /api/copies/{id}；借阅 POST/GET /api/loans、GET /api/loans/{id}、POST /api/loans/{id}/return。创建借阅传 readerId 和 copyId。完整可重复请求由 smoke-test.sh 自动生成并校验。
+
+停止使用 `docker compose down`，保留卷；不要加 `-v`。第五周单体编排保存为 compose.week05.yaml，历史操作须使用 `docker compose -f compose.week05.yaml ...`。根目录 compose.yaml 现用于第六周。
+
 
 ## 第五周：Docker 容器化
 
@@ -13,9 +46,9 @@ cp .env.example .env
 # 编辑 .env，将两个 replace-with 开头的密码占位符换成本地密码
 # 已配置过 .env 时不要再次覆盖
  docker build -t library-monolith:week05 ./monolith
- docker compose up -d --build
- docker compose ps
- docker compose logs --tail=30 app
+ docker compose -f compose.week05.yaml up -d --build
+ docker compose -f compose.week05.yaml ps
+ docker compose -f compose.week05.yaml logs --tail=30 app
 ```
 
 应用通过共享 backend 网络中的 `mysql:3306` 连接 MySQL 8.4.11。数据库健康后才启动应用。
@@ -35,12 +68,12 @@ curl -i http://localhost:18085/api/books
 创建返回 201；相同 ISBN 重复创建返回 409，重新演示时更换 ISBN。记录创建响应的 id，查询 `/api/books/实际ID`。
 
 ```bash
-docker compose down
-docker compose up -d
+docker compose -f compose.week05.yaml down
+docker compose -f compose.week05.yaml up -d
 # 等待应用启动后，使用原来的 ID 查询同一记录
 curl -i http://localhost:18085/api/books/1
 # 停止应用和数据库（保留数据卷）
-docker compose down
+docker compose -f compose.week05.yaml down
 ```
 
 最后的 `/1` 仅适用于创建响应 ID 为 1 的情况。不要使用 `down -v`，它会删除命名数据卷。
@@ -183,7 +216,7 @@ curl -i -X POST http://localhost:8080/api/borrows/BORROW_ID/return
 
 第二周完成选题和功能规划，第三周搭建 Spring Boot 工程骨架，第四周完成单体借出/归还和 MySQL 持久化。后续再增加读者管理、预约和罚款。
 
-暂不实现跨馆调拨、图书采购、电子书阅读、个性化推荐、在线支付、复杂罚款减免及多渠道通知。暂不引入服务拆分，先完成基础业务与数据库持久化。
+暂不实现跨馆调拨、图书采购、电子书阅读、个性化推荐、在线支付、复杂罚款减免及多渠道通知。第六周已按读者、图书和借阅拆分，原单体继续保留。
 
 ## 后续演进方向
 

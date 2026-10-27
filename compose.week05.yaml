@@ -1,0 +1,39 @@
+name: library-week05
+services:
+  mysql:
+    image: mysql:8.4.11
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-library_db}
+      MYSQL_USER: ${DB_USER:-library}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+  app:
+    image: library-monolith:week05
+    build:
+      context: ./monolith
+    ports:
+      - "${APP_PORT:-18085}:8080"
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/${DB_NAME:-library_db}?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+      DB_USER: ${DB_USER:-library}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      SERVER_PORT: 8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - backend
+volumes:
+  mysql_data:
+networks:
+  backend:

@@ -1,0 +1,477 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.75kB done
+#1 DONE 0.0s
+
+#2 [book-service internal] load build definition from Dockerfile
+#2 transferring dockerfile: 341B done
+#2 DONE 0.0s
+
+#3 [loan-service internal] load build definition from Dockerfile
+#3 transferring dockerfile: 341B done
+#3 DONE 0.0s
+
+#4 [reader-service internal] load build definition from Dockerfile
+#4 transferring dockerfile: 341B done
+#4 DONE 0.0s
+
+#5 [loan-service internal] load metadata for docker.io/library/eclipse-temurin:25-jre
+#5 DONE 0.1s
+
+#6 [reader-service internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-25
+#6 DONE 0.5s
+
+#7 [book-service internal] load .dockerignore
+#7 transferring context: 2B done
+#7 DONE 0.0s
+
+#8 [loan-service internal] load .dockerignore
+#8 transferring context: 2B done
+#8 DONE 0.0s
+
+#9 [reader-service internal] load .dockerignore
+#9 transferring context: 2B done
+#9 DONE 0.0s
+
+#10 [loan-service stage-1 1/3] FROM docker.io/library/eclipse-temurin:25-jre@sha256:dbb43d81099eec91e0800226ed2296d03146ee7857165b95112372ad0d67e87f
+#10 resolve docker.io/library/eclipse-temurin:25-jre@sha256:dbb43d81099eec91e0800226ed2296d03146ee7857165b95112372ad0d67e87f done
+#10 DONE 0.0s
+
+#11 [loan-service build 1/5] FROM docker.io/library/maven:3.9-eclipse-temurin-25@sha256:93b8a14ea2f412782e4e842651273b4d903e35cc496284f178fbbe2d67d00976
+#11 resolve docker.io/library/maven:3.9-eclipse-temurin-25@sha256:93b8a14ea2f412782e4e842651273b4d903e35cc496284f178fbbe2d67d00976 done
+#11 DONE 0.0s
+
+#12 [book-service internal] load build context
+#12 transferring context: 1.81kB done
+#12 DONE 0.0s
+
+#13 [reader-service internal] load build context
+#13 transferring context: 1.70kB done
+#13 DONE 0.0s
+
+#14 [book-service build 3/5] COPY pom.xml .
+#14 CACHED
+
+#15 [book-service build 4/5] COPY src ./src
+#15 CACHED
+
+#16 [loan-service internal] load build context
+#16 transferring context: 1.73kB done
+#16 DONE 0.0s
+
+#17 [reader-service build 3/5] COPY pom.xml .
+#17 CACHED
+
+#18 [reader-service build 4/5] COPY src ./src
+#18 CACHED
+
+#19 [loan-service build 3/5] COPY pom.xml .
+#19 CACHED
+
+#20 [loan-service build 2/5] WORKDIR /build
+#20 CACHED
+
+#21 [loan-service build 4/5] COPY src ./src
+#21 CACHED
+
+#22 [loan-service build 5/5] RUN --mount=type=cache,target=/root/.m2,sharing=locked mvn -B package
+#22 ...
+
+#23 [book-service build 5/5] RUN --mount=type=cache,target=/root/.m2,sharing=locked mvn -B package
+#23 0.695 [INFO] Scanning for projects...
+#23 0.857 [INFO]
+#23 0.857 [INFO] ---------------------< com.zjgsu.wch:book-service >---------------------
+#23 0.857 [INFO] Building book-service 0.0.1-SNAPSHOT
+#23 0.857 [INFO]   from pom.xml
+#23 0.857 [INFO] --------------------------------[ jar ]---------------------------------
+#23 1.090 [INFO]
+#23 1.090 [INFO] --- resources:3.3.1:resources (default-resources) @ book-service ---
+#23 1.157 [INFO] Copying 1 resource from src/main/resources to target/classes
+#23 1.163 [INFO] Copying 0 resource from src/main/resources to target/classes
+#23 1.163 [INFO]
+#23 1.163 [INFO] --- compiler:3.14.1:compile (default-compile) @ book-service ---
+#23 1.216 [INFO] Recompiling the module because of changed source code.
+#23 1.221 [INFO] Compiling 9 source files with javac [debug parameters release 25] to target/classes
+#23 1.549 [INFO]
+#23 1.549 [INFO] --- resources:3.3.1:testResources (default-testResources) @ book-service ---
+#23 1.551 [INFO] Copying 1 resource from src/test/resources to target/test-classes
+#23 1.552 [INFO]
+#23 1.552 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ book-service ---
+#23 1.555 [INFO] Recompiling the module because of changed dependency.
+#23 1.556 [INFO] Compiling 1 source file with javac [debug parameters release 25] to target/test-classes
+#23 1.690 [INFO]
+#23 1.690 [INFO] --- surefire:3.5.6:test (default-test) @ book-service ---
+#23 1.748 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+#23 1.766 [INFO]
+#23 1.766 [INFO] -------------------------------------------------------
+#23 1.766 [INFO]  T E S T S
+#23 1.766 [INFO] -------------------------------------------------------
+#23 2.113 [INFO] Running com.zjgsu.wch.book.BookServiceTest
+#23 2.212 03:44:17.367 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.zjgsu.wch.book.BookServiceTest]: BookServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+#23 2.312 03:44:17.404 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.zjgsu.wch.book.BookApplication for test class com.zjgsu.wch.book.BookServiceTest
+#23 2.312 03:44:17.431 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.zjgsu.wch.book.BookServiceTest]: BookServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+#23 2.312 03:44:17.432 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.zjgsu.wch.book.BookApplication for test class com.zjgsu.wch.book.BookServiceTest
+#23 2.412
+#23 2.412   .   ____          _            __ _ _
+#23 2.412  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+#23 2.412 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+#23 2.412  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+#23 2.412   '  |____| .__|_| |_|_| |_\__, | / / / /
+#23 2.412  =========|_|==============|___/=/_/_/_/
+#23 2.412
+#23 2.412  :: Spring Boot ::                (v4.0.8)
+#23 2.412
+#23 2.412 2026-10-27T03:44:17.546Z  INFO 78 --- [           main] com.zjgsu.wch.book.BookServiceTest       : Starting BookServiceTest using Java 25.0.4.1 with PID 78 (started by root in /build)
+#23 2.413 2026-10-27T03:44:17.546Z  INFO 78 --- [           main] com.zjgsu.wch.book.BookServiceTest       : No active profile set, falling back to 1 default profile: "default"
+#23 2.717 2026-10-27T03:44:17.804Z  INFO 78 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+#23 2.717 2026-10-27T03:44:17.821Z  INFO 78 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 2 JPA repository interfaces.
+#23 2.817 2026-10-27T03:44:17.981Z  INFO 78 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+#23 2.918 2026-10-27T03:44:18.012Z  INFO 78 --- [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.24.Final
+#23 3.023 2026-10-27T03:44:18.186Z  INFO 78 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+#23 3.125 2026-10-27T03:44:18.200Z  INFO 78 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+#23 3.125 2026-10-27T03:44:18.267Z  INFO 78 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:book user=SA
+#23 3.125 2026-10-27T03:44:18.268Z  INFO 78 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+#23 3.229 2026-10-27T03:44:18.294Z  INFO 78 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+#23 3.229 	Database JDBC URL [jdbc:h2:mem:book]
+#23 3.229 	Database driver: H2 JDBC Driver
+#23 3.229 	Database dialect: H2Dialect
+#23 3.229 	Database version: 2.4.240
+#23 3.229 	Default catalog/schema: BOOK/PUBLIC
+#23 3.229 	Autocommit mode: undefined/unknown
+#23 3.229 	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+#23 3.229 	JDBC fetch size: 100
+#23 3.229 	Pool: DataSourceConnectionProvider
+#23 3.229 	Minimum pool size: undefined/unknown
+#23 3.229 	Maximum pool size: undefined/unknown
+#23 3.532 2026-10-27T03:44:18.606Z  INFO 78 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+#23 3.532 2026-10-27T03:44:18.626Z  INFO 78 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+#23 3.532 2026-10-27T03:44:18.653Z  INFO 78 --- [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+#23 3.634 2026-10-27T03:44:18.760Z  WARN 78 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+#23 3.836 2026-10-27T03:44:18.967Z  INFO 78 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+#23 3.836 2026-10-27T03:44:18.995Z  INFO 78 --- [           main] com.zjgsu.wch.book.BookServiceTest       : Started BookServiceTest in 1.543 seconds (process running for 2.021)
+#23 3.940 Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+#23 4.041 WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+#23 4.041 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+#23 4.041 WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+#23 4.041 WARNING: Dynamic loading of agents will be disallowed by default in a future release
+#23 4.044 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+#23 4.287 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.170 s -- in com.zjgsu.wch.book.BookServiceTest
+#23 4.300 [INFO]
+#23 4.300 [INFO] Results:
+#23 4.300 [INFO]
+#23 4.300 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+#23 4.300 [INFO]
+#23 4.302 [INFO]
+#23 4.302 [INFO] --- jar:3.4.2:jar (default-jar) @ book-service ---
+#23 4.395 [INFO] Building jar: /build/target/book-service-0.0.1-SNAPSHOT.jar
+#23 4.408 [INFO]
+#23 4.408 [INFO] --- spring-boot:4.0.8:repackage (repackage) @ book-service ---
+#23 4.579 [INFO] Replacing main artifact /build/target/book-service-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+#23 4.579 [INFO] The original artifact has been renamed to /build/target/book-service-0.0.1-SNAPSHOT.jar.original
+#23 4.579 [INFO] ------------------------------------------------------------------------
+#23 4.579 [INFO] BUILD SUCCESS
+#23 4.579 [INFO] ------------------------------------------------------------------------
+#23 4.580 [INFO] Total time:  3.901 s
+#23 4.580 [INFO] Finished at: 2026-10-27T03:44:19Z
+#23 4.580 [INFO] ------------------------------------------------------------------------
+#23 DONE 4.6s
+
+#24 [reader-service stage-1 2/3] WORKDIR /app
+#24 CACHED
+
+#25 [book-service stage-1 3/3] COPY --from=build /build/target/*.jar app.jar
+#25 DONE 0.0s
+
+#26 [book-service] exporting to image
+#26 exporting layers
+#26 exporting layers 1.0s done
+#26 exporting manifest sha256:b50ff0c78d74c1615bf7b280ec7ea7b8892dcf3921b14024f38bb5f14bbbc4cb 0.0s done
+#26 exporting config sha256:e8b64e448e0b5ebcc6394759254fb41dc8de777f3efe3b3509ab9a1be4408d70
+#26 exporting config sha256:e8b64e448e0b5ebcc6394759254fb41dc8de777f3efe3b3509ab9a1be4408d70 done
+#26 exporting attestation manifest sha256:7b63ca6fc82f0dfa2958be9dcefc7cd40daf2b4ab349369e5593d629cebac6c0 0.0s done
+#26 exporting manifest list sha256:3cbee88005a62c6b57a1b850631a3e1f0e4375d0d9c6156dbb3dd774ca395c1f done
+#26 naming to docker.io/library/library-book:week06 done
+#26 unpacking to docker.io/library/library-book:week06
+#26 unpacking to docker.io/library/library-book:week06 0.2s done
+#26 DONE 1.3s
+
+#27 [book-service] resolving provenance for metadata file
+#27 DONE 0.0s
+
+#22 [loan-service build 5/5] RUN --mount=type=cache,target=/root/.m2,sharing=locked mvn -B package
+#22 5.191 [INFO] Scanning for projects...
+#22 5.282 [INFO]
+#22 5.282 [INFO] ---------------------< com.zjgsu.wch:loan-service >---------------------
+#22 5.282 [INFO] Building loan-service 0.0.1-SNAPSHOT
+#22 5.283 [INFO]   from pom.xml
+#22 5.283 [INFO] --------------------------------[ jar ]---------------------------------
+#22 5.453 [INFO]
+#22 5.453 [INFO] --- resources:3.3.1:resources (default-resources) @ loan-service ---
+#22 5.516 [INFO] Copying 1 resource from src/main/resources to target/classes
+#22 5.525 [INFO] Copying 0 resource from src/main/resources to target/classes
+#22 5.525 [INFO]
+#22 5.525 [INFO] --- compiler:3.14.1:compile (default-compile) @ loan-service ---
+#22 5.564 [INFO] Recompiling the module because of changed source code.
+#22 5.568 [INFO] Compiling 8 source files with javac [debug parameters release 25] to target/classes
+#22 5.894 [INFO]
+#22 5.894 [INFO] --- resources:3.3.1:testResources (default-testResources) @ loan-service ---
+#22 5.896 [INFO] Copying 1 resource from src/test/resources to target/test-classes
+#22 5.897 [INFO]
+#22 5.897 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ loan-service ---
+#22 5.900 [INFO] Recompiling the module because of changed dependency.
+#22 5.900 [INFO] Compiling 1 source file with javac [debug parameters release 25] to target/test-classes
+#22 6.085 [INFO]
+#22 6.085 [INFO] --- surefire:3.5.6:test (default-test) @ loan-service ---
+#22 6.142 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+#22 6.159 [INFO]
+#22 6.159 [INFO] -------------------------------------------------------
+#22 6.159 [INFO]  T E S T S
+#22 6.159 [INFO] -------------------------------------------------------
+#22 6.482 [INFO] Running com.zjgsu.wch.loan.LoanServiceTest
+#22 6.590 03:44:21.706 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.zjgsu.wch.loan.LoanServiceTest]: LoanServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+#22 6.590 03:44:21.736 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.zjgsu.wch.loan.LoanApplication for test class com.zjgsu.wch.loan.LoanServiceTest
+#22 6.689 03:44:21.762 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.zjgsu.wch.loan.LoanServiceTest]: LoanServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+#22 6.689 03:44:21.763 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.zjgsu.wch.loan.LoanApplication for test class com.zjgsu.wch.loan.LoanServiceTest
+#22 6.790
+#22 6.790   .   ____          _            __ _ _
+#22 6.790  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+#22 6.790 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+#22 6.790  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+#22 6.790   '  |____| .__|_| |_|_| |_\__, | / / / /
+#22 6.790  =========|_|==============|___/=/_/_/_/
+#22 6.790
+#22 6.790  :: Spring Boot ::                (v4.0.8)
+#22 6.791
+#22 6.791 2026-10-27T03:44:21.903Z  INFO 79 --- [           main] com.zjgsu.wch.loan.LoanServiceTest       : Starting LoanServiceTest using Java 25.0.4.1 with PID 79 (started by root in /build)
+#22 6.791 2026-10-27T03:44:21.903Z  INFO 79 --- [           main] com.zjgsu.wch.loan.LoanServiceTest       : No active profile set, falling back to 1 default profile: "default"
+#22 6.992 2026-10-27T03:44:22.144Z  INFO 79 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+#22 7.093 2026-10-27T03:44:22.160Z  INFO 79 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 1 JPA repository interface.
+#22 7.194 2026-10-27T03:44:22.309Z  INFO 79 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+#22 7.194 2026-10-27T03:44:22.325Z  INFO 79 --- [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.24.Final
+#22 7.296 2026-10-27T03:44:22.462Z  INFO 79 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+#22 7.396 2026-10-27T03:44:22.473Z  INFO 79 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+#22 7.396 2026-10-27T03:44:22.529Z  INFO 79 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:loan user=SA
+#22 7.396 2026-10-27T03:44:22.530Z  INFO 79 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+#22 7.396 2026-10-27T03:44:22.549Z  INFO 79 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+#22 7.396 	Database JDBC URL [jdbc:h2:mem:loan]
+#22 7.396 	Database driver: H2 JDBC Driver
+#22 7.396 	Database dialect: H2Dialect
+#22 7.396 	Database version: 2.4.240
+#22 7.396 	Default catalog/schema: LOAN/PUBLIC
+#22 7.396 	Autocommit mode: undefined/unknown
+#22 7.396 	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+#22 7.396 	JDBC fetch size: 100
+#22 7.396 	Pool: DataSourceConnectionProvider
+#22 7.396 	Minimum pool size: undefined/unknown
+#22 7.396 	Maximum pool size: undefined/unknown
+#22 7.701 2026-10-27T03:44:22.807Z  INFO 79 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+#22 7.701 2026-10-27T03:44:22.818Z  INFO 79 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+#22 7.701 2026-10-27T03:44:22.851Z  INFO 79 --- [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+#22 7.802 2026-10-27T03:44:22.934Z  WARN 79 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+#22 8.004 2026-10-27T03:44:23.128Z  INFO 79 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+#22 8.004 2026-10-27T03:44:23.151Z  INFO 79 --- [           main] com.zjgsu.wch.loan.LoanServiceTest       : Started LoanServiceTest in 1.356 seconds (process running for 1.79)
+#22 8.104 Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+#22 8.189 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+#22 8.205 WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+#22 8.205 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+#22 8.205 WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+#22 8.205 WARNING: Dynamic loading of agents will be disallowed by default in a future release
+#22 8.503 [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.014 s -- in com.zjgsu.wch.loan.LoanServiceTest
+#22 8.516 [INFO]
+#22 8.516 [INFO] Results:
+#22 8.516 [INFO]
+#22 8.516 [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
+#22 8.516 [INFO]
+#22 8.518 [INFO]
+#22 8.518 [INFO] --- jar:3.4.2:jar (default-jar) @ loan-service ---
+#22 8.595 [INFO] Building jar: /build/target/loan-service-0.0.1-SNAPSHOT.jar
+#22 8.606 [INFO]
+#22 8.606 [INFO] --- spring-boot:4.0.8:repackage (repackage) @ loan-service ---
+#22 8.757 [INFO] Replacing main artifact /build/target/loan-service-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+#22 8.757 [INFO] The original artifact has been renamed to /build/target/loan-service-0.0.1-SNAPSHOT.jar.original
+#22 8.757 [INFO] ------------------------------------------------------------------------
+#22 8.757 [INFO] BUILD SUCCESS
+#22 8.757 [INFO] ------------------------------------------------------------------------
+#22 8.758 [INFO] Total time:  3.575 s
+#22 8.758 [INFO] Finished at: 2026-10-27T03:44:23Z
+#22 8.758 [INFO] ------------------------------------------------------------------------
+#22 DONE 8.8s
+
+#28 [loan-service stage-1 3/3] COPY --from=build /build/target/*.jar app.jar
+#28 DONE 0.0s
+
+#29 [loan-service] exporting to image
+#29 exporting layers 1.0s done
+#29 exporting manifest sha256:404f19ad052840f015bf9895fcb5545b437abfbf713f46faa1f92b2fae7edb27 done
+#29 exporting config sha256:d0fd054f977e415f6c5349c4036413e14cb8091c993fd450ac592e5ccde7ec18 0.0s done
+#29 exporting attestation manifest sha256:edc15c278a596f5dfa07779f5995ed8084b77591ffa03b51f2f8b8fca3c67350 done
+#29 exporting manifest list sha256:8c401ae053cc70f49023b6717d07e4c91dec7bd2dfab12fd0cf5b6a4e162f7b9 done
+#29 naming to docker.io/library/library-loan:week06 done
+#29 unpacking to docker.io/library/library-loan:week06
+#29 ...
+
+#30 [reader-service build 5/5] RUN --mount=type=cache,target=/root/.m2,sharing=locked mvn -B package
+#30 9.474 [INFO] Scanning for projects...
+#30 9.573 [INFO]
+#30 9.573 [INFO] --------------------< com.zjgsu.wch:reader-service >--------------------
+#30 9.573 [INFO] Building reader-service 0.0.1-SNAPSHOT
+#30 9.573 [INFO]   from pom.xml
+#30 9.573 [INFO] --------------------------------[ jar ]---------------------------------
+#30 9.797 [INFO]
+#30 9.797 [INFO] --- resources:3.3.1:resources (default-resources) @ reader-service ---
+#30 9.872 [INFO] Copying 1 resource from src/main/resources to target/classes
+#30 9.882 [INFO] Copying 0 resource from src/main/resources to target/classes
+#30 9.882 [INFO]
+#30 9.882 [INFO] --- compiler:3.14.1:compile (default-compile) @ reader-service ---
+#30 9.926 [INFO] Recompiling the module because of changed source code.
+#30 9.933 [INFO] Compiling 7 source files with javac [debug parameters release 25] to target/classes
+#30 ...
+
+#29 [loan-service] exporting to image
+#29 unpacking to docker.io/library/library-loan:week06 0.2s done
+#29 DONE 1.3s
+
+#31 [loan-service] resolving provenance for metadata file
+#31 DONE 0.0s
+
+#30 [reader-service build 5/5] RUN --mount=type=cache,target=/root/.m2,sharing=locked mvn -B package
+#30 10.28 [INFO]
+#30 10.28 [INFO] --- resources:3.3.1:testResources (default-testResources) @ reader-service ---
+#30 10.29 [INFO] Copying 1 resource from src/test/resources to target/test-classes
+#30 10.29 [INFO]
+#30 10.29 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ reader-service ---
+#30 10.29 [INFO] Recompiling the module because of changed dependency.
+#30 10.29 [INFO] Compiling 1 source file with javac [debug parameters release 25] to target/test-classes
+#30 10.42 [INFO]
+#30 10.42 [INFO] --- surefire:3.5.6:test (default-test) @ reader-service ---
+#30 10.47 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+#30 10.49 [INFO]
+#30 10.49 [INFO] -------------------------------------------------------
+#30 10.49 [INFO]  T E S T S
+#30 10.49 [INFO] -------------------------------------------------------
+#30 10.79 [INFO] Running com.zjgsu.wch.reader.ReaderServiceTest
+#30 10.91 03:44:26.007 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.zjgsu.wch.reader.ReaderServiceTest]: ReaderServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+#30 10.91 03:44:26.040 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.zjgsu.wch.reader.ReaderApplication for test class com.zjgsu.wch.reader.ReaderServiceTest
+#30 10.91 03:44:26.064 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.zjgsu.wch.reader.ReaderServiceTest]: ReaderServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+#30 10.91 03:44:26.065 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.zjgsu.wch.reader.ReaderApplication for test class com.zjgsu.wch.reader.ReaderServiceTest
+#30 11.01
+#30 11.01   .   ____          _            __ _ _
+#30 11.01  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+#30 11.01 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+#30 11.01  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+#30 11.01   '  |____| .__|_| |_|_| |_\__, | / / / /
+#30 11.01  =========|_|==============|___/=/_/_/_/
+#30 11.01
+#30 11.01  :: Spring Boot ::                (v4.0.8)
+#30 11.01
+#30 11.01 2026-10-27T03:44:26.176Z  INFO 79 --- [           main] com.zjgsu.wch.reader.ReaderServiceTest   : Starting ReaderServiceTest using Java 25.0.4.1 with PID 79 (started by root in /build)
+#30 11.01 2026-10-27T03:44:26.176Z  INFO 79 --- [           main] com.zjgsu.wch.reader.ReaderServiceTest   : No active profile set, falling back to 1 default profile: "default"
+#30 11.42 2026-10-27T03:44:26.490Z  INFO 79 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+#30 11.42 2026-10-27T03:44:26.513Z  INFO 79 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 1 JPA repository interface.
+#30 11.62 2026-10-27T03:44:26.709Z  INFO 79 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+#30 11.62 2026-10-27T03:44:26.736Z  INFO 79 --- [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.24.Final
+#30 11.82 2026-10-27T03:44:26.895Z  INFO 79 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+#30 11.82 2026-10-27T03:44:26.908Z  INFO 79 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+#30 11.82 2026-10-27T03:44:26.981Z  INFO 79 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:reader user=SA
+#30 11.82 2026-10-27T03:44:26.982Z  INFO 79 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+#30 11.92 2026-10-27T03:44:27.012Z  INFO 79 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+#30 11.92 	Database JDBC URL [jdbc:h2:mem:reader]
+#30 11.92 	Database driver: H2 JDBC Driver
+#30 11.92 	Database dialect: H2Dialect
+#30 11.92 	Database version: 2.4.240
+#30 11.92 	Default catalog/schema: READER/PUBLIC
+#30 11.92 	Autocommit mode: undefined/unknown
+#30 11.92 	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+#30 11.92 	JDBC fetch size: 100
+#30 11.92 	Pool: DataSourceConnectionProvider
+#30 11.92 	Minimum pool size: undefined/unknown
+#30 11.92 	Maximum pool size: undefined/unknown
+#30 12.33 2026-10-27T03:44:27.414Z  INFO 79 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+#30 12.33 2026-10-27T03:44:27.426Z  INFO 79 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+#30 12.33 2026-10-27T03:44:27.462Z  INFO 79 --- [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+#30 12.43 2026-10-27T03:44:27.550Z  WARN 79 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+#30 12.63 2026-10-27T03:44:27.787Z  INFO 79 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+#30 12.70 2026-10-27T03:44:27.818Z  INFO 79 --- [           main] com.zjgsu.wch.reader.ReaderServiceTest   : Started ReaderServiceTest in 1.734 seconds (process running for 2.128)
+#30 12.73 Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+#30 12.88 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+#30 12.93 WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+#30 12.93 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+#30 12.93 WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+#30 12.93 WARNING: Dynamic loading of agents will be disallowed by default in a future release
+#30 13.03 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.236 s -- in com.zjgsu.wch.reader.ReaderServiceTest
+#30 13.05 [INFO]
+#30 13.05 [INFO] Results:
+#30 13.05 [INFO]
+#30 13.05 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+#30 13.05 [INFO]
+#30 13.06 [INFO]
+#30 13.06 [INFO] --- jar:3.4.2:jar (default-jar) @ reader-service ---
+#30 13.17 [INFO] Building jar: /build/target/reader-service-0.0.1-SNAPSHOT.jar
+#30 13.20 [INFO]
+#30 13.20 [INFO] --- spring-boot:4.0.8:repackage (repackage) @ reader-service ---
+#30 13.39 [INFO] Replacing main artifact /build/target/reader-service-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+#30 13.39 [INFO] The original artifact has been renamed to /build/target/reader-service-0.0.1-SNAPSHOT.jar.original
+#30 13.39 [INFO] ------------------------------------------------------------------------
+#30 13.39 [INFO] BUILD SUCCESS
+#30 13.39 [INFO] ------------------------------------------------------------------------
+#30 13.39 [INFO] Total time:  3.923 s
+#30 13.39 [INFO] Finished at: 2026-10-27T03:44:28Z
+#30 13.39 [INFO] ------------------------------------------------------------------------
+#30 DONE 13.5s
+
+#32 [reader-service stage-1 3/3] COPY --from=build /build/target/*.jar app.jar
+#32 DONE 0.0s
+
+#33 [reader-service] exporting to image
+#33 exporting layers 0.9s done
+#33 exporting manifest sha256:423185fe30d7441f457f09b8fccfc5bd667f3279d995c6b9084cea0a4d96ab4f done
+#33 exporting config sha256:48cfa45999a0f0e794d16dd175c2d63ff67081decfca7b7bd622c19322998bdb done
+#33 exporting attestation manifest sha256:fba0e4cae13dea2a0d07963300870edb44b043a3d8fa22b4b8f80828bd628ba1 done
+#33 exporting manifest list sha256:34cffe5b14cdc1610245b2f3844be43692dabeb80151553a3bd6bb06fc2989dc done
+#33 naming to docker.io/library/library-reader:week06 done
+#33 unpacking to docker.io/library/library-reader:week06
+#33 unpacking to docker.io/library/library-reader:week06 0.2s done
+#33 DONE 1.1s
+
+#34 [reader-service] resolving provenance for metadata file
+#34 DONE 0.0s
+ library-loan:week06  Built
+ library-reader:week06  Built
+ library-book:week06  Built
+ Network library-week05_backend  Creating
+ Network library-week05_backend  Created
+ Volume "library-week05_reader_data"  Creating
+ Volume "library-week05_reader_data"  Created
+ Volume "library-week05_book_data"  Creating
+ Volume "library-week05_book_data"  Created
+ Volume "library-week05_loan_data"  Creating
+ Volume "library-week05_loan_data"  Created
+ Container library-week05-book-db-1  Creating
+ Container library-week05-reader-db-1  Creating
+ Container library-week05-loan-db-1  Creating
+ Container library-week05-reader-db-1  Created
+ Container library-week05-reader-service-1  Creating
+ Container library-week05-loan-db-1  Created
+ Container library-week05-loan-service-1  Creating
+ Container library-week05-book-db-1  Created
+ Container library-week05-book-service-1  Creating
+ Container library-week05-loan-service-1  Created
+ Container library-week05-reader-service-1  Created
+ Container library-week05-book-service-1  Created
+ Container library-week05-reader-db-1  Starting
+ Container library-week05-loan-db-1  Starting
+ Container library-week05-book-db-1  Starting
+ Container library-week05-book-db-1  Started
+ Container library-week05-book-db-1  Waiting
+ Container library-week05-reader-db-1  Started
+ Container library-week05-reader-db-1  Waiting
+ Container library-week05-loan-db-1  Started
+ Container library-week05-loan-db-1  Waiting
+ Container library-week05-book-db-1  Healthy
+ Container library-week05-book-service-1  Starting
+ Container library-week05-reader-db-1  Healthy
+ Container library-week05-reader-service-1  Starting
+ Container library-week05-loan-db-1  Healthy
+ Container library-week05-loan-service-1  Starting
+ Container library-week05-loan-service-1  Started
+ Container library-week05-book-service-1  Started
+ Container library-week05-reader-service-1  Started

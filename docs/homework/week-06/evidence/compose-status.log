@@ -1,0 +1,7 @@
+NAME                              IMAGE                   COMMAND                  SERVICE          CREATED          STATUS                    PORTS
+library-week05-book-db-1          mysql:8.4.11            "docker-entrypoint.s…"   book-db          26 seconds ago   Up 26 seconds (healthy)   3306/tcp, 33060/tcp
+library-week05-book-service-1     library-book:week06     "java -jar /app/app.…"   book-service     26 seconds ago   Up 5 seconds              0.0.0.0:18087->8080/tcp, [::]:18087->8080/tcp
+library-week05-loan-db-1          mysql:8.4.11            "docker-entrypoint.s…"   loan-db          26 seconds ago   Up 26 seconds (healthy)   3306/tcp, 33060/tcp
+library-week05-loan-service-1     library-loan:week06     "java -jar /app/app.…"   loan-service     26 seconds ago   Up 15 seconds             0.0.0.0:18088->8080/tcp, [::]:18088->8080/tcp
+library-week05-reader-db-1        mysql:8.4.11            "docker-entrypoint.s…"   reader-db        26 seconds ago   Up 26 seconds (healthy)   3306/tcp, 33060/tcp
+library-week05-reader-service-1   library-reader:week06   "java -jar /app/app.…"   reader-service   26 seconds ago   Up 15 seconds             0.0.0.0:18086->8080/tcp, [::]:18086->8080/tcp

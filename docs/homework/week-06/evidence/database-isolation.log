@@ -1,0 +1,25 @@
+reader-db
+DATABASE()	CURRENT_USER()
+reader_db	reader@%
+Tables_in_reader_db
+readers
+Grants for reader@%
+GRANT USAGE ON *.* TO `reader`@`%`
+GRANT ALL PRIVILEGES ON `reader\\_db`.* TO `reader`@`%`
+book-db
+DATABASE()	CURRENT_USER()
+book_db	book@%
+Tables_in_book_db
+book_copies
+books
+Grants for book@%
+GRANT USAGE ON *.* TO `book`@`%`
+GRANT ALL PRIVILEGES ON `book\\_db`.* TO `book`@`%`
+loan-db
+DATABASE()	CURRENT_USER()
+loan_db	loan@%
+Tables_in_loan_db
+loans
+Grants for loan@%
+GRANT USAGE ON *.* TO `loan`@`%`
+GRANT ALL PRIVILEGES ON `loan\\_db`.* TO `loan`@`%`
